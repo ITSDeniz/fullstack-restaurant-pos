@@ -65,18 +65,18 @@ adisyonSistemi/
 ---
 
 ### 🔹 Phase 2: Core Backend REST API & Atomic Transactions
-- [ ] Build Express application with layered architecture (Routes -> Controllers -> Services -> Repositories).
-- [ ] Global error-handling middleware and standard JSON response formatter (`{ success, data, error }`).
-- [ ] Zod request validation middleware.
-- [ ] **Table Management API**:
+- [x] Build Express application with layered architecture (Routes -> Controllers -> Services -> Repositories).
+- [x] Global error-handling middleware and standard JSON response formatter (`{ success, data, error }`).
+- [x] Zod request validation middleware.
+- [x] **Table Management API**:
   - `GET /api/tables` (list all tables with active order info).
   - `GET /api/tables/:id` (table detail).
   - `PATCH /api/tables/:id/status` (manually change status if needed).
-- [ ] **Catalog API**:
+- [x] **Catalog API**:
   - `GET /api/categories` (list all categories).
   - `GET /api/products` (filter by category, active-only soft-delete filter).
   - `POST /api/products` / `PATCH /api/products/:id` (product management with soft delete).
-- [ ] **Order & Cart API**:
+- [x] **Order & Cart API**:
   - `GET /api/orders/active/:tableId` (retrieve active open order for a table).
   - `POST /api/orders` (open new order for table or add items).
   - `PATCH /api/orders/:orderId/items` (update quantities, remove items, recalculate totals).
@@ -86,8 +86,8 @@ adisyonSistemi/
       2. Update `Table.status = 'AVAILABLE'`.
       3. Guaranteed rollback if either step fails.
   - `POST /api/orders/:orderId/cancel` (cancel open order and release table).
-- [ ] API integration tests / manual endpoint verification.
-- [ ] **Deliverable**: Phase 2 summary & Git commit message. **Wait for user approval**.
+- [x] API integration tests / manual endpoint verification.
+- [x] **Deliverable**: Phase 2 summary & Git commit message. **Wait for user approval**.
 
 ---
 
