@@ -149,3 +149,4 @@ export const PinAuthModal: React.FC<PinAuthModalProps> = ({
     </div>
   );
 };
+
