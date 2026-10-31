@@ -92,24 +92,23 @@ adisyonSistemi/
 ---
 
 ### 🔹 Phase 3: Frontend POS Client (React + TypeScript + Tailwind CSS)
-- [ ] Initialize Vite + React (TypeScript) + Tailwind CSS + Lucide Icons.
-- [ ] Setup Zustand store for:
-  - `useTableStore`: Active selected table, table statuses.
-  - `useMenuStore`: Categories, active category filter, products catalog.
-  - `useOrderStore`: Current order items, subtotal calculation, checkout loading state.
-- [ ] **UI Layout & Components**:
-  - **Top Navigation Bar**: Brand logo, active table switcher, table status badges (`Available` / `Occupied`).
+- [x] Initialize Vite + React (TypeScript) + Tailwind CSS + Lucide Icons.
+- [x] Setup Zustand store for:
+  - `usePosStore`: Active selected table, table statuses, menu catalog, cart items, order state, dynamic totals.
+- [x] **UI Layout & Components**:
+  - **Top Navigation Bar**: Brand logo, active table metrics (`Available` / `Occupied`), live terminal clock, sync action.
+  - **Table Selector**: Interactive table chip bar with dynamic occupancy dots and order indicators.
   - **Left Panel (Menu Area)**:
-    - Horizontal category filter pills (All, Burgers, Pizzas, Drinks, Desserts, Starters).
-    - Responsive product cards displaying name, price, badge.
-    - Click-to-add micro-animation.
+    - Search input for instant product discovery.
+    - Horizontal category filter pills (All, Burgers, Pizzas, Starters, Beverages, Desserts) with item count badges.
+    - Responsive product cards displaying name, price, badge, click-to-add micro-interactions.
   - **Right Panel (Order / Cart Area)**:
-    - Table indicator (`Table #X - Active Order`).
+    - Table indicator (`Table #X - Active Order`) with status badge.
     - Itemized order list: item name, unit price, quantity increment (`+`) and decrement (`-`), remove item button.
-    - Financial summary: Subtotal, VAT / Service fee, dynamic Grand Total.
-    - "Pay & Checkout" button with clear state feedback.
-- [ ] High-end, responsive POS aesthetics (vibrant accents, dark/light contrast, polished micro-interactions).
-- [ ] **Deliverable**: Phase 3 summary & Git commit message. **Wait for user approval**.
+    - Financial summary: Net Subtotal, VAT / Tax (10%), dynamic Grand Total.
+    - "Pay & Checkout" button with clear state feedback & receipt confirmation modal.
+- [x] High-end, responsive POS aesthetics (vibrant accents, dark/light contrast, polished micro-interactions).
+- [x] **Deliverable**: Phase 3 summary & Git commit message. **Wait for user approval**.
 
 ---
 
