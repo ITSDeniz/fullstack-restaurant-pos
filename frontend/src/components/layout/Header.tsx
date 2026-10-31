@@ -3,12 +3,14 @@ import { UtensilsCrossed, RefreshCw, Layers, History, Settings2 } from 'lucide-r
 import { usePosStore } from '../../stores/usePosStore';
 import { OrderHistoryModal } from './OrderHistoryModal';
 import { AdminModal } from './AdminModal';
+import { PinAuthModal } from './PinAuthModal';
 
 export const Header: React.FC = () => {
-  const { tables, fetchInitialData, isLoading } = usePosStore();
+  const { tables, fetchInitialData, isLoading, addToast } = usePosStore();
   const [time, setTime] = useState<string>('');
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isPinModalOpen, setIsPinModalOpen] = useState(false);
 
   useEffect(() => {
     const updateClock = () => {
@@ -30,6 +32,17 @@ export const Header: React.FC = () => {
 
   const occupiedCount = tables.filter((t) => t.status === 'OCCUPIED').length;
   const availableCount = tables.filter((t) => t.status === 'AVAILABLE').length;
+
+  const handleOpenManage = () => {
+    // Prompt for Manager PIN before opening management
+    setIsPinModalOpen(true);
+  };
+
+  const handlePinSuccess = () => {
+    setIsPinModalOpen(false);
+    setIsAdminOpen(true);
+    addToast('success', 'Manager authenticated successfully');
+  };
 
   return (
     <>
@@ -85,11 +98,11 @@ export const Header: React.FC = () => {
             <span className="hidden sm:inline">History</span>
           </button>
 
-          {/* Admin / Management Button */}
+          {/* Admin / Management Button (Protected by PIN) */}
           <button
-            onClick={() => setIsAdminOpen(true)}
+            onClick={handleOpenManage}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/60 text-xs font-semibold transition-all active:scale-95"
-            title="Manage Tables & Products"
+            title="Manage Tables & Products (Manager PIN Required)"
           >
             <Settings2 className="w-4 h-4 text-cyan-400" />
             <span className="hidden sm:inline">Manage</span>
@@ -106,6 +119,13 @@ export const Header: React.FC = () => {
           </button>
         </div>
       </header>
+
+      {/* Security PIN Authorization Modal */}
+      <PinAuthModal
+        isOpen={isPinModalOpen}
+        onClose={() => setIsPinModalOpen(false)}
+        onSuccess={handlePinSuccess}
+      />
 
       {/* Modals */}
       <OrderHistoryModal isOpen={isHistoryOpen} onClose={() => setIsHistoryOpen(false)} />
