@@ -58,3 +58,4 @@ export const CategoryNav: React.FC = () => {
     </div>
   );
 };
+

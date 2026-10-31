@@ -9,6 +9,7 @@ import {
 const router = Router();
 const controller = new OrderController();
 
+router.get('/', (req, res, next) => controller.getAllOrders(req, res, next));
 router.get('/active/table/:tableId', (req, res, next) =>
   controller.getActiveOrderByTable(req, res, next)
 );

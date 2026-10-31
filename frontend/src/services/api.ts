@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { ApiResponse, Category, Product, Table, Order, CheckoutResult, TableStatus } from '../types';
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5050/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -17,6 +17,14 @@ export const tableApi = {
   },
   getById: async (id: string): Promise<Table> => {
     const res = await apiClient.get<ApiResponse<Table>>(`/tables/${id}`);
+    return res.data.data;
+  },
+  create: async (tableNumber?: number): Promise<Table> => {
+    const res = await apiClient.post<ApiResponse<Table>>('/tables', { tableNumber });
+    return res.data.data;
+  },
+  delete: async (id: string): Promise<Table> => {
+    const res = await apiClient.delete<ApiResponse<Table>>(`/tables/${id}`);
     return res.data.data;
   },
   updateStatus: async (id: string, status: TableStatus): Promise<Table> => {
@@ -40,10 +48,23 @@ export const productApi = {
     const res = await apiClient.get<ApiResponse<Product[]>>('/products', { params });
     return res.data.data;
   },
+  create: async (data: { name: string; price: number; categoryId: string }): Promise<Product> => {
+    const res = await apiClient.post<ApiResponse<Product>>('/products', data);
+    return res.data.data;
+  },
+  delete: async (id: string): Promise<Product> => {
+    const res = await apiClient.delete<ApiResponse<Product>>(`/products/${id}`);
+    return res.data.data;
+  },
 };
 
 // Orders API
 export const orderApi = {
+  getAll: async (status?: string): Promise<Order[]> => {
+    const params = status ? { status } : {};
+    const res = await apiClient.get<ApiResponse<Order[]>>('/orders', { params });
+    return res.data.data;
+  },
   getActiveByTable: async (tableId: string): Promise<Order | null> => {
     const res = await apiClient.get<ApiResponse<Order | null>>(`/orders/active/table/${tableId}`);
     return res.data.data;

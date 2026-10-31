@@ -4,7 +4,7 @@ dotenv.config();
 import { createApp } from './app';
 
 const app = createApp();
-const PORT = Number(process.env.PORT) || 5000;
+const PORT = Number(process.env.PORT) || 5050;
 
 app.listen(PORT, () => {
   console.log(`🚀 Restaurant POS Server is running on http://localhost:${PORT}`);

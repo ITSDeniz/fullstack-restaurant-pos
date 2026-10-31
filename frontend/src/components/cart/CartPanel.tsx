@@ -167,3 +167,4 @@ export const CartPanel: React.FC = () => {
     </>
   );
 };
+

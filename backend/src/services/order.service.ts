@@ -8,6 +8,21 @@ interface OrderItemInput {
 }
 
 export class OrderService {
+  async getAllOrders(status?: OrderStatus, limit = 50) {
+    return prisma.order.findMany({
+      where: status ? { status } : {},
+      include: {
+        table: true,
+        items: {
+          include: { product: true },
+          orderBy: { createdAt: 'asc' },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+    });
+  }
+
   async getActiveOrderByTable(tableId: string) {
     return prisma.order.findFirst({
       where: {

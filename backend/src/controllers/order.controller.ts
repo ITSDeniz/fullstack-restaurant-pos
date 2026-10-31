@@ -4,6 +4,21 @@ import { OrderService } from '../services/order.service';
 const orderService = new OrderService();
 
 export class OrderController {
+  async getAllOrders(req: Request, res: Response, next: NextFunction) {
+    try {
+      const status = req.query.status as any;
+      const limit = req.query.limit ? Number(req.query.limit) : 50;
+      const orders = await orderService.getAllOrders(status, limit);
+      res.json({
+        success: true,
+        data: orders,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getActiveOrderByTable(req: Request, res: Response, next: NextFunction) {
     try {
       const tableId = req.params.tableId as string;

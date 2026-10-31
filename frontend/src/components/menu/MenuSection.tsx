@@ -72,3 +72,4 @@ export const MenuSection: React.FC = () => {
     </div>
   );
 };
+

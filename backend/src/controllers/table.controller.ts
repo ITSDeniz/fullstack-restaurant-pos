@@ -31,6 +31,36 @@ export class TableController {
     }
   }
 
+  async createTable(req: Request, res: Response, next: NextFunction) {
+    try {
+      const tableNumber = req.body?.tableNumber ? Number(req.body.tableNumber) : undefined;
+      const newTable = await tableService.createTable(tableNumber);
+      res.status(201).json({
+        success: true,
+        message: `Table #${newTable.tableNumber} created successfully`,
+        data: newTable,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteTable(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = req.params.id as string;
+      const deleted = await tableService.deleteTable(id);
+      res.json({
+        success: true,
+        message: `Table #${deleted.tableNumber} deleted successfully`,
+        data: deleted,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async updateStatus(req: Request, res: Response, next: NextFunction) {
     try {
       const id = req.params.id as string;
