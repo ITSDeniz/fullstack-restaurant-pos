@@ -1,0 +1,33 @@
+{
+  "name": "fullstack-restaurant-pos",
+  "version": "1.0.0",
+  "description": "Production-ready, decoupled Restaurant Point of Sale (POS) system built with React, Node.js, Express, PostgreSQL, and Prisma ORM.",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"blue.bold,magenta.bold\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "db:push": "npm --prefix backend run prisma:migrate",
+    "db:seed": "npm --prefix backend run prisma:seed",
+    "db:studio": "npm --prefix backend run prisma:studio"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "pos",
+    "restaurant-pos",
+    "point-of-sale",
+    "react",
+    "typescript",
+    "nodejs",
+    "express",
+    "prisma",
+    "postgresql",
+    "zustand",
+    "tailwind-css"
+  ],
+  "author": "ITSDeniz",
+  "license": "MIT"
+}

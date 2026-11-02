@@ -113,16 +113,17 @@ adisyonSistemi/
 ---
 
 ### 🔹 Phase 4: Full-Stack Integration, Live State Sync & Testing
-- [ ] Connect Frontend Zustand stores to Backend API endpoints.
-- [ ] Implement error notifications and feedback toasts.
-- [ ] End-to-end verification:
+- [x] Connect Frontend Zustand stores to Backend API endpoints.
+- [x] Implement error notifications and feedback toasts.
+- [x] End-to-end verification:
   1. Select Table 2.
   2. Add items to order -> Table becomes `OCCUPIED`.
   3. Modify item quantities -> Grand total recalculates correctly.
   4. Perform Checkout -> Transaction commits -> Order marked `PAID`, Table reset to `AVAILABLE`.
-- [ ] Docker configuration (`docker-compose.yml` for PostgreSQL) for seamless local setup.
-- [ ] Comprehensive `README.md` with setup guide, API docs, and architecture walkthrough.
-- [ ] **Deliverable**: Final summary & Git commit message.
+- [x] Docker configuration (`docker-compose.yml` for PostgreSQL) for seamless local setup.
+- [x] Root `package.json` with single-command `npm run dev` orchestration via `concurrently`.
+- [x] Comprehensive `README.md` with setup guide, API docs, and architecture walkthrough.
+- [x] **Deliverable**: Final summary & Git commit message.
 
 ---
 
