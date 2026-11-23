@@ -200,10 +200,26 @@ export class OrderService {
         new Prisma.Decimal(0)
       );
 
-      await tx.order.update({
-        where: { id: orderId },
-        data: { totalAmount: grandTotal },
-      });
+      if (remainingItems.length === 0) {
+        // Atomically close empty order and release the table back to AVAILABLE
+        await tx.order.update({
+          where: { id: orderId },
+          data: {
+            totalAmount: 0,
+            status: OrderStatus.CANCELLED,
+          },
+        });
+
+        await tx.table.update({
+          where: { id: order.tableId },
+          data: { status: TableStatus.AVAILABLE },
+        });
+      } else {
+        await tx.order.update({
+          where: { id: orderId },
+          data: { totalAmount: grandTotal },
+        });
+      }
 
       return tx.order.findUnique({
         where: { id: orderId },

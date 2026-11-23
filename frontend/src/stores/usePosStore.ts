@@ -139,18 +139,27 @@ export const usePosStore = create<PosState>((set, get) => ({
   },
 
   updateItemQuantity: async (itemId: string, quantity: number) => {
-    const { activeOrder } = get();
+    const { activeOrder, selectedTable } = get();
     if (!activeOrder) return;
 
     set({ isOrderLoading: true });
     try {
       const updatedOrder = await orderApi.updateQuantity(activeOrder.id, itemId, quantity);
-      set({ activeOrder: updatedOrder });
 
-      // If items are now empty, refresh tables
-      if (updatedOrder && updatedOrder.items.length === 0) {
+      // If all items were removed, clear activeOrder and sync table status back to AVAILABLE
+      if (!updatedOrder || updatedOrder.status !== 'OPEN' || updatedOrder.items.length === 0) {
         const refreshedTables = await tableApi.getAll();
-        set({ tables: refreshedTables });
+        const updatedSelected = selectedTable
+          ? refreshedTables.find((t) => t.id === selectedTable.id) || null
+          : null;
+
+        set({
+          activeOrder: null,
+          tables: refreshedTables,
+          selectedTable: updatedSelected,
+        });
+      } else {
+        set({ activeOrder: updatedOrder });
       }
     } catch (error) {
       console.error('Failed to update item quantity:', error);
